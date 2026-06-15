@@ -354,8 +354,10 @@
   border: 1.5px solid rgba(30, 20, 8, .42);
   transition: background .22s, border-color .22s, transform .2s;
 }
-.book-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; flex-shrink: 0; }
+.book-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; flex-shrink: 0; transition: transform .24s; }
 .book-btn:hover { background: var(--ivory); border-color: rgba(30, 20, 8, .7); transform: translateY(-1px); }
+.book-btn:hover svg { transform: translateX(3px); }
+.book-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .book-btn.primary { background: var(--deep); border-color: var(--deep); color: #fff; font-size: 15px; padding: 18px 22px; }
 .book-btn.primary svg { stroke: #fff; }
 .book-btn.primary:hover { background: #3d2a10; border-color: #3d2a10; }

@@ -86,7 +86,8 @@
   transition: background .22s;
 }
 .pc-nav .nav-reserve::after { display: none; }
-.pc-nav .nav-reserve:hover { background: #3d2a10; }
+.pc-nav .nav-reserve:hover        { background: #3d2a10; color: #fff; }
+.pc-nav .nav-reserve:focus-visible { background: #3d2a10; color: #fff; outline: 2px solid var(--gold); outline-offset: 2px; }
 .pc-nav .nav-reserve svg {
   width: 14px;
   height: 14px;

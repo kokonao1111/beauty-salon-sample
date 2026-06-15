@@ -10,7 +10,7 @@
   display: block;
   font-size: clamp(20px,2.6vw,26px); letter-spacing: .09em;
   color: var(--deep); font-weight: normal;
-  margin-bottom: 13px; line-height: 1.5;
+  margin-top: 0; margin-bottom: 13px; line-height: 1.5;
 }
 .sec-head .en {
   display: flex; align-items: center; justify-content: center; gap: 12px;
