@@ -326,6 +326,7 @@ a{cursor:pointer;color:inherit;text-decoration:none}
   .trial-sec{padding:80px clamp(40px,5vw,80px) 92px}
   .trial-inner{max-width:var(--max)}
   .plan-body{padding:18px 20px 42px}
+  .plan-grid{grid-template-columns:repeat(3,1fr);gap:20px}
   .plan-name{font-size:15px}
   .plan-price{font-size:26px}
   .rec-sec{padding:80px clamp(40px,5vw,80px) 96px}
@@ -353,8 +354,8 @@ a{cursor:pointer;color:inherit;text-decoration:none}
    4-COL 1200px+
    ================================================================ */
 @media(min-width:1200px){
-  .plan-grid{grid-template-columns:repeat(4,1fr);gap:18px}
-  .plan-body{padding:16px 16px 38px}
+  .plan-grid{grid-template-columns:repeat(3,1fr);gap:20px}
+  .plan-body{padding:16px 18px 42px}
   .plan-name{font-size:14px}
   .plan-price{font-size:22px}
   .camp-grid{grid-template-columns:repeat(4,1fr);gap:3px}
@@ -426,6 +427,8 @@ body.anim-ready .plan-stagger.is-visible>*:nth-child(1){transition-delay:.00s}
 body.anim-ready .plan-stagger.is-visible>*:nth-child(2){transition-delay:.07s}
 body.anim-ready .plan-stagger.is-visible>*:nth-child(3){transition-delay:.14s}
 body.anim-ready .plan-stagger.is-visible>*:nth-child(4){transition-delay:.21s}
+body.anim-ready .plan-stagger.is-visible>*:nth-child(5){transition-delay:.28s}
+body.anim-ready .plan-stagger.is-visible>*:nth-child(6){transition-delay:.35s}
 
 body.anim-ready .rec-cards>*{opacity:0;transform:translateY(14px) scale(.98);transition:opacity .72s ease,transform .72s cubic-bezier(.16,1,.3,1)}
 body.anim-ready .rec-cards.is-visible>*{opacity:1 !important;transform:none !important}
@@ -528,7 +531,10 @@ body.anim-ready .book-rise.is-visible>*:nth-child(3){transition-delay:.14s}
       <img class="hero-slide-img" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&auto=format&fit=crop&q=85" alt="">
     </div>
     <div class="hero-slide">
-      <img class="hero-slide-img" src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=1600&auto=format&fit=crop&q=85" alt="">
+      <img class="hero-slide-img" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1600&auto=format&fit=crop&q=85&crop=top" alt="">
+    </div>
+    <div class="hero-slide">
+      <img class="hero-slide-img" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600&auto=format&fit=crop&q=85" alt="">
     </div>
   </div>
   <div class="hero-veil" aria-hidden="true"></div>
@@ -545,6 +551,7 @@ body.anim-ready .book-rise.is-visible>*:nth-child(3){transition-delay:.14s}
     <button class="hero-dot is-active" aria-label="スライド1"></button>
     <button class="hero-dot" aria-label="スライド2"></button>
     <button class="hero-dot" aria-label="スライド3"></button>
+    <button class="hero-dot" aria-label="スライド4"></button>
   </div>
   <div class="hero-scroll" aria-hidden="true"><span>SCROLL</span><div class="scroll-line"></div></div>
 </section>
@@ -649,12 +656,32 @@ body.anim-ready .book-rise.is-visible>*:nth-child(3){transition-delay:.14s}
         <div class="plan-arr" aria-hidden="true"></div>
       </article>
       <article class="plan-card">
+        <img class="plan-card-img" src="https://images.unsplash.com/photo-1505944357431-27579db47558?w=700&auto=format&fit=crop&q=82" alt="水素導入ケア">
+        <div class="plan-body">
+          <h3 class="plan-name">水素導入ケア</h3>
+          <p class="plan-reg">通常 ¥14,000</p>
+          <p class="plan-price">¥5,480<span>（税込）</span></p>
+          <p class="plan-dur">所要時間 70分</p>
+        </div>
+        <div class="plan-arr" aria-hidden="true"></div>
+      </article>
+      <article class="plan-card">
         <img class="plan-card-img" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=700&auto=format&fit=crop&q=82" alt="ボディトリートメント">
         <div class="plan-body">
           <h3 class="plan-name">ボディトリートメント</h3>
           <p class="plan-reg">通常 ¥16,000</p>
           <p class="plan-price">¥6,800<span>（税込）</span></p>
           <p class="plan-dur">所要時間 80分</p>
+        </div>
+        <div class="plan-arr" aria-hidden="true"></div>
+      </article>
+      <article class="plan-card">
+        <img class="plan-card-img" src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=700&auto=format&fit=crop&q=82" alt="リンパボディメイク">
+        <div class="plan-body">
+          <h3 class="plan-name">リンパボディメイク</h3>
+          <p class="plan-reg">通常 ¥18,000</p>
+          <p class="plan-price">¥7,200<span>（税込）</span></p>
+          <p class="plan-dur">所要時間 90分</p>
         </div>
         <div class="plan-arr" aria-hidden="true"></div>
       </article>
