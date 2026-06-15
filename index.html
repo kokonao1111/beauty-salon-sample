@@ -470,9 +470,81 @@ body.anim-ready .book-rise.is-visible>*:nth-child(3){transition-delay:.14s}
 .drawer.open nav ul li:nth-child(6){opacity:1;transform:none;transition-delay:.45s}
 
 }
+
+/* ================================================================
+   LOADING SCREEN
+   ================================================================ */
+body.is-loading{overflow:hidden}
+.site-loader{
+  position:fixed;inset:0;z-index:9999;
+  background:radial-gradient(ellipse at 50% 46%,#fdfaf6 0%,var(--ivory) 70%);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .70s ease;
+}
+.site-loader.is-hiding{opacity:0;pointer-events:none}
+.site-loader.is-hidden{display:none}
+.ldr-inner{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 48px}
+.ldr-mono{
+  width:52px;height:52px;
+  border:1px solid rgba(196,165,107,.72);
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(45deg);
+  opacity:0;margin-bottom:22px;flex-shrink:0;
+}
+.ldr-mono-txt{
+  transform:rotate(-45deg);
+  font-family:Georgia,serif;font-size:11px;letter-spacing:.18em;
+  color:var(--deep);display:block;line-height:1;
+}
+.ldr-sep{
+  width:22px;height:1px;
+  background:rgba(196,165,107,.50);
+  margin:0 auto 16px;opacity:0;
+}
+.ldr-brand{
+  font-family:var(--serif);font-size:15px;letter-spacing:.22em;
+  color:var(--deep);font-weight:normal;
+  margin-bottom:10px;opacity:0;transform:translateY(8px);
+}
+.ldr-copy{
+  font-size:11px;letter-spacing:.13em;color:#7a5a2a;
+  font-family:var(--serif);
+  margin-bottom:30px;opacity:0;
+}
+.ldr-track{width:96px;height:1px;background:rgba(196,165,107,.22);position:relative;overflow:hidden}
+.ldr-bar{position:absolute;top:0;left:0;height:100%;width:0;background:var(--gold)}
+@media(prefers-reduced-motion:no-preference){
+  @keyframes ldrMono{from{opacity:0;transform:rotate(45deg) scale(.88)}to{opacity:1;transform:rotate(45deg) scale(1)}}
+  @keyframes ldrFadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes ldrFadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes ldrBar{from{width:0}to{width:100%}}
+  .site-loader .ldr-mono{animation:ldrMono .62s .28s cubic-bezier(.22,.61,.36,1) both}
+  .site-loader .ldr-sep{animation:ldrFadeIn .45s .54s ease both}
+  .site-loader .ldr-brand{animation:ldrFadeUp .62s .58s ease both}
+  .site-loader .ldr-copy{animation:ldrFadeIn .48s .84s ease both}
+  .site-loader .ldr-bar{animation:ldrBar .92s .90s ease both}
+}
+@media(prefers-reduced-motion:reduce){
+  .site-loader .ldr-mono,
+  .site-loader .ldr-sep,
+  .site-loader .ldr-brand,
+  .site-loader .ldr-copy{opacity:1;transform:none}
+  .site-loader .ldr-bar{width:100%}
+}
 </style>
 </head>
 <body>
+
+<!-- LOADING SCREEN -->
+<div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="サイトを読み込み中">
+  <div class="ldr-inner" aria-hidden="true">
+    <div class="ldr-mono"><span class="ldr-mono-txt">L B</span></div>
+    <div class="ldr-sep"></div>
+    <p class="ldr-brand">Lumiere Belle Salon</p>
+    <p class="ldr-copy">日々の忙しさを、ほどく時間へ。</p>
+    <div class="ldr-track"><div class="ldr-bar"></div></div>
+  </div>
+</div>
 
 <!-- DRAWER -->
 <div class="drawer-bg" id="dbg"></div>
@@ -910,6 +982,28 @@ body.anim-ready .book-rise.is-visible>*:nth-child(3){transition-delay:.14s}
 <div class="sp-body-pad"></div>
 
 <script>
+/* ── SITE LOADER ── */
+(function(){
+  var el=document.getElementById('siteLoader');
+  if(!el)return;
+  var rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  document.body.classList.add('is-loading');
+  var done=false;
+  var minMs=rm?700:2700;
+  var fadeMs=rm?260:800;
+  function hide(){
+    if(done)return;done=true;
+    el.classList.add('is-hiding');
+    document.body.classList.remove('is-loading');
+    setTimeout(function(){el.classList.add('is-hidden')},fadeMs);
+  }
+  var minOk=false,domOk=(document.readyState!=='loading');
+  function attempt(){if(minOk&&domOk)hide()}
+  setTimeout(function(){minOk=true;attempt()},minMs);
+  if(!domOk)document.addEventListener('DOMContentLoaded',function(){domOk=true;attempt()});
+  setTimeout(hide,4000);
+})();
+
 (function(){
   var mbtn=document.getElementById('mbtn'),drawer=document.getElementById('drawer'),
       dbg=document.getElementById('dbg'),dx=document.getElementById('dx'),
