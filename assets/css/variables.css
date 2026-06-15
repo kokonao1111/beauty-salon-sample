@@ -1,14 +1,18 @@
 :root {
-  /* Brand Colors */
-  --gold:       #c4a56b;
-  --gold-lt:    #e8d8a8;
-  --brown:      #3d2a0e;
-  --deep:       #1e1408;
-  --ivory:      #f9f6f1;
-  --cream:      #f3ebe0;
-  --mist:       #e6ddd0;
-  --line:       #c8b07a;
-  --footer-bg:  #180e04;
+  /* Brand colors */
+  --gold:      #c4a56b;
+  --gold-lt:   #e8d8a8;
+  --deep:      #1e1408;
+  --ivory:     #f9f6f1;
+  --cream:     #f3ebe0;
+  --mist:      #e6ddd0;
+  --line:      #c8b07a;
+  --footer-bg: #180e04;
+
+  /* Text colors */
+  --text:     #2e1e08;  /* primary / body */
+  --text-sub: #5a3e1a;  /* labels, captions, secondary */
+  --text-dim: #4a3418;  /* paragraph body */
 
   /* Typography */
   --serif: 'Hiragino Mincho ProN', 'Yu Mincho', 'YuMincho', 'Noto Serif JP', Georgia, serif;

@@ -1,32 +1,39 @@
 (function () {
-  var el = document.getElementById('siteLoader');
+  const el = document.getElementById('siteLoader');
   if (!el) return;
 
-  var rm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Minimum time the loader stays visible (prevents flash on fast connections)
+  const MIN_DISPLAY_MS  = reducedMotion ? 700  : 2700;
+  const FADE_DURATION_MS = reducedMotion ? 260  : 800;
+  const HARD_CUTOFF_MS   = 4000;
+
   document.body.classList.add('is-loading');
 
-  var done  = false;
-  var minMs = rm ? 700  : 2700;
-  var fadeMs = rm ? 260 : 800;
+  let dismissed = false;
 
-  function hide() {
-    if (done) return;
-    done = true;
+  function dismiss() {
+    if (dismissed) return;
+    dismissed = true;
     el.classList.add('is-hiding');
     document.body.classList.remove('is-loading');
-    setTimeout(function () { el.classList.add('is-hidden'); }, fadeMs);
+    setTimeout(() => el.classList.add('is-hidden'), FADE_DURATION_MS);
   }
 
-  var minOk = false;
-  var domOk = (document.readyState !== 'loading');
+  let minTimeElapsed = false;
+  let domReady = document.readyState !== 'loading';
 
-  function attempt() { if (minOk && domOk) hide(); }
-
-  setTimeout(function () { minOk = true; attempt(); }, minMs);
-  if (!domOk) {
-    document.addEventListener('DOMContentLoaded', function () { domOk = true; attempt(); });
+  function tryDismiss() {
+    if (minTimeElapsed && domReady) dismiss();
   }
 
-  // Hard cutoff — prevents loader from getting stuck
-  setTimeout(hide, 4000);
+  setTimeout(() => { minTimeElapsed = true; tryDismiss(); }, MIN_DISPLAY_MS);
+
+  if (!domReady) {
+    document.addEventListener('DOMContentLoaded', () => { domReady = true; tryDismiss(); });
+  }
+
+  // Failsafe: force dismiss if both conditions never resolve together
+  setTimeout(dismiss, HARD_CUTOFF_MS);
 })();

@@ -1,43 +1,46 @@
 function initHeroSlider() {
-  var slides = document.querySelectorAll('.hero-slide');
-  var dots   = document.querySelectorAll('.hero-dot');
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots   = document.querySelectorAll('.hero-dot');
   if (!slides.length) return;
 
-  var rm    = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var cur   = 0;
-  var timer = null;
+  const SLIDE_INTERVAL_MS = 5800;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function go(n) {
-    slides[cur].classList.remove('is-active');
-    if (dots[cur]) dots[cur].classList.remove('is-active');
+  let current = 0;
+  let timer   = null;
 
-    cur = (n + slides.length) % slides.length;
+  function goTo(index) {
+    slides[current].classList.remove('is-active');
+    dots[current]?.classList.remove('is-active');
 
-    // Restart zoom animation on the incoming slide's image
-    var img = slides[cur].querySelector('.hero-slide-img');
-    if (img && !rm) {
+    current = (index + slides.length) % slides.length;
+
+    // Restart the CSS zoom animation on the incoming image.
+    // Removing and re-adding the element triggers a reflow, which resets the animation.
+    const img = slides[current].querySelector('.hero-slide-img');
+    if (img && !reducedMotion) {
       img.style.animation = 'none';
-      void img.offsetWidth; // reflow to restart animation
+      void img.offsetWidth; // force reflow
       img.style.animation = '';
     }
 
-    slides[cur].classList.add('is-active');
-    if (dots[cur]) dots[cur].classList.add('is-active');
+    slides[current].classList.add('is-active');
+    dots[current]?.classList.add('is-active');
   }
 
-  function start() {
-    if (rm) return;
+  function startAutoplay() {
+    if (reducedMotion) return;
     clearInterval(timer);
-    timer = setInterval(function () { go(cur + 1); }, 5800);
+    timer = setInterval(() => goTo(current + 1), SLIDE_INTERVAL_MS);
   }
 
-  dots.forEach(function (dot, i) {
-    dot.addEventListener('click', function () {
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
       clearInterval(timer);
-      go(i);
-      start();
+      goTo(i);
+      startAutoplay();
     });
   });
 
-  start();
+  startAutoplay();
 }

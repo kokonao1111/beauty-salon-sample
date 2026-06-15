@@ -1,70 +1,100 @@
 function initNavigation() {
-  var mbtn  = document.getElementById('mbtn');
-  var drawer = document.getElementById('drawer');
-  var dbg   = document.getElementById('dbg');
-  var dx    = document.getElementById('dx');
-  var htop  = document.getElementById('htop');
-  var spTop = document.getElementById('sp-toplink');
-  var pcTop = document.getElementById('pc-toplink');
-  var pcH   = document.querySelector('.pc-header');
-  var spH   = document.querySelector('.sp-header');
+  const drawer    = document.getElementById('drawer');
+  const drawerBg  = document.getElementById('dbg');
+  const btnMenu   = document.getElementById('mbtn');
+  const btnClose  = document.getElementById('dx');
+  const btnHome   = document.getElementById('htop');
+  const spLogoLink = document.getElementById('sp-toplink');
+  const pcLogoLink = document.getElementById('pc-toplink');
+  const pcHeader  = document.querySelector('.pc-header');
+  const spHeader  = document.querySelector('.sp-header');
 
-  /* Drawer open / close */
-  function openDrawer()  { drawer.classList.add('open');    dbg.classList.add('open');    document.body.style.overflow = 'hidden'; }
-  function closeDrawer() { drawer.classList.remove('open'); dbg.classList.remove('open'); document.body.style.overflow = ''; }
+  // PC header height when visible (used for scroll-offset calculation)
+  const PC_HEADER_H = 68;
+  const SP_HEADER_H = 56;
 
-  if (mbtn) mbtn.addEventListener('click', openDrawer);
-  if (dx)   dx.addEventListener('click',   closeDrawer);
-  if (dbg)  dbg.addEventListener('click',  closeDrawer);
+  /* Drawer */
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawerBg.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawerBg.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  btnMenu?.addEventListener('click', openDrawer);
+  btnClose?.addEventListener('click', closeDrawer);
+  drawerBg?.addEventListener('click', closeDrawer);
 
   /* Scroll to top */
-  function scrollTop(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-  if (htop)  htop.addEventListener('click',  scrollTop);
-  if (spTop) spTop.addEventListener('click', scrollTop);
-  if (pcTop) pcTop.addEventListener('click', scrollTop);
+  function scrollToTop(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  /* Smooth scroll for all in-page anchor links */
-  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var hash = this.getAttribute('href');
+  btnHome?.addEventListener('click', scrollToTop);
+  spLogoLink?.addEventListener('click', scrollToTop);
+  pcLogoLink?.addEventListener('click', scrollToTop);
+
+  /* Smooth scroll for in-page anchor links */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const hash = link.getAttribute('href');
       if (hash === '#') return;
-      var target = document.querySelector(hash);
+
+      const target = document.querySelector(hash);
       if (!target) return;
+
       e.preventDefault();
       closeDrawer();
-      var hdr = window.innerWidth >= 768 ? pcH : spH;
-      var offset = hdr && !hdr.classList.contains('hidden')
-        ? hdr.offsetHeight
-        : (window.innerWidth >= 768 ? 68 : 56);
-      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+
+      const isPC = window.innerWidth >= 768;
+      const header = isPC ? pcHeader : spHeader;
+      const offset = header && !header.classList.contains('hidden')
+        ? header.offsetHeight
+        : (isPC ? PC_HEADER_H : SP_HEADER_H);
+
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY - offset,
+        behavior: 'smooth',
+      });
     });
   });
 
-  /* Header show / hide on scroll */
-  var lastY = 0;
+  /* Header show/hide on scroll */
+  const SCROLL_THRESHOLD = 100; // px before hide behavior kicks in
+  const SCROLL_HYSTERESIS = 4;  // px delta to ignore micro-scrolls
+
+  let lastScrollY = 0;
+
   function onScroll() {
-    var y  = window.scrollY;
-    var dn = y > lastY + 4;
-    var up = y < lastY - 4;
+    const y  = window.scrollY;
+    const scrolledDown = y > lastScrollY + SCROLL_HYSTERESIS;
+    const scrolledUp   = y < lastScrollY - SCROLL_HYSTERESIS;
 
-    if (pcH) pcH.classList.toggle('scrolled', y > 12);
-    if (spH) spH.classList.toggle('scrolled', y > 12);
+    pcHeader?.classList.toggle('scrolled', y > 12);
+    spHeader?.classList.toggle('scrolled', y > 12);
 
-    if (y > 100) {
-      if (dn) {
-        if (pcH) pcH.classList.add('hidden');
-        if (spH) spH.classList.add('hidden');
-      } else if (up) {
-        if (pcH) pcH.classList.remove('hidden');
-        if (spH) spH.classList.remove('hidden');
+    if (y > SCROLL_THRESHOLD) {
+      if (scrolledDown) {
+        pcHeader?.classList.add('hidden');
+        spHeader?.classList.add('hidden');
+      } else if (scrolledUp) {
+        pcHeader?.classList.remove('hidden');
+        spHeader?.classList.remove('hidden');
       }
     } else {
-      if (pcH) pcH.classList.remove('hidden');
-      if (spH) spH.classList.remove('hidden');
+      pcHeader?.classList.remove('hidden');
+      spHeader?.classList.remove('hidden');
     }
-    lastY = y;
+
+    lastScrollY = y;
   }
 
-  onScroll();
+  onScroll(); // run once on init to set correct state
   window.addEventListener('scroll', onScroll, { passive: true });
 }

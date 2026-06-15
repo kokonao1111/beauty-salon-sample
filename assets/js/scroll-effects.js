@@ -1,59 +1,70 @@
 function initScrollEffects() {
-  var rm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  if (rm || !('IntersectionObserver' in window)) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion || !('IntersectionObserver' in window)) return;
 
+  // CSS transitions only apply once this class is present,
+  // so elements remain visible if JS doesn't run.
   document.body.classList.add('anim-ready');
 
-  var obs = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-visible');
-        obs.unobserve(e.target);
+  // Safety timeout: force all animated elements visible if the observer
+  // misfires (e.g. element already in viewport on load).
+  const SAFETY_TIMEOUT_MS = 1400;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0, rootMargin: '0px 0px -4px 0px' });
-
-  // Individual fade targets
-  document.querySelectorAll('.sec-head, .fade-up, .fade-in, .intro-rule').forEach(function (el) {
-    obs.observe(el);
+  }, {
+    threshold: 0,
+    rootMargin: '0px 0px -4px 0px',
   });
 
-  // Grid stagger groups — class added dynamically so CSS transitions apply
-  var cg = document.querySelector('.camp-grid');
-  if (cg) { cg.classList.add('camp-stagger');  obs.observe(cg); }
+  function observe(el) {
+    if (el) observer.observe(el);
+  }
 
-  var pg = document.querySelector('.plan-grid');
-  if (pg) { pg.classList.add('plan-stagger');   obs.observe(pg); }
+  function observeAll(selector) {
+    document.querySelectorAll(selector).forEach(el => observer.observe(el));
+  }
 
-  var rg = document.querySelector('.rec-grid');
-  if (rg) { rg.classList.add('rec-cards');      obs.observe(rg); }
+  // Individual elements
+  observeAll('.sec-head, .fade-up, .fade-in, .intro-rule');
 
-  var nl = document.querySelector('.news-list');
-  if (nl) { nl.classList.add('news-fade');       obs.observe(nl); }
+  // Grid groups — classes added here so the CSS stagger transitions kick in
+  const campGrid = document.querySelector('.camp-grid');
+  if (campGrid) { campGrid.classList.add('camp-stagger');   observe(campGrid); }
 
-  var ig = document.querySelector('.insta-grid');
-  if (ig) { ig.classList.add('insta-stagger');  obs.observe(ig); }
+  const planGrid = document.querySelector('.plan-grid');
+  if (planGrid) { planGrid.classList.add('plan-stagger');   observe(planGrid); }
 
-  // Store map & detail
-  document.querySelectorAll('.map-anim, .detail-anim').forEach(function (el) {
-    obs.observe(el);
-  });
+  const recGrid = document.querySelector('.rec-grid');
+  if (recGrid)  { recGrid.classList.add('rec-cards');       observe(recGrid);  }
+
+  const newsList = document.querySelector('.news-list');
+  if (newsList) { newsList.classList.add('news-fade');       observe(newsList); }
+
+  const instaGrid = document.querySelector('.insta-grid');
+  if (instaGrid) { instaGrid.classList.add('insta-stagger'); observe(instaGrid); }
+
+  // Store layout
+  observeAll('.map-anim, .detail-anim');
 
   // Booking
-  document.querySelectorAll('.book-btns').forEach(function (el) {
+  document.querySelectorAll('.book-btns').forEach(el => {
     el.classList.add('book-rise');
-    obs.observe(el);
+    observe(el);
   });
-  document.querySelectorAll('.book-note, .insta-btns').forEach(function (el) {
+  document.querySelectorAll('.book-note, .insta-btns').forEach(el => {
     el.classList.add('fade-up');
-    obs.observe(el);
+    observe(el);
   });
 
-  // Safety fallback: force all elements visible after 1.4s in case observer misfires
-  setTimeout(function () {
-    var sel = '.fade-up,.fade-in,.sec-head,.intro-rule,.camp-stagger,.plan-stagger,.rec-cards,.news-fade,.insta-stagger,.map-anim,.detail-anim,.book-rise';
-    document.querySelectorAll(sel).forEach(function (el) {
-      el.classList.add('is-visible');
-    });
-  }, 1400);
+  // Fallback: mark everything visible after a short delay
+  const allAnimated = '.fade-up, .fade-in, .sec-head, .intro-rule, .camp-stagger, .plan-stagger, .rec-cards, .news-fade, .insta-stagger, .map-anim, .detail-anim, .book-rise';
+  setTimeout(() => {
+    document.querySelectorAll(allAnimated).forEach(el => el.classList.add('is-visible'));
+  }, SAFETY_TIMEOUT_MS);
 }
