@@ -58,8 +58,12 @@
    ================================================================ */
 @media (min-width: 1024px) {
   .hero { height: calc(100vh - var(--hh)); min-height: 640px; display: flex; align-items: stretch; }
-  .hero-dots { bottom: 32px; left: auto; right: 80px; transform: none; }
-  .hero-arrow { width: 46px; height: 46px; }
+  .hero-nav { bottom: 36px; left: auto; right: 40px; transform: none; align-items: flex-end; }
+  .hero-bar::after { width: 24px; }
+  .hero-bar.is-active::after { width: 40px; }
+  .hero-counter { font-size: 11px; }
+  .hero-counter-cur { font-size: 16px; }
+  .hero-arrow { width: 48px; height: 48px; }
   .hero-arrow svg { width: 18px; height: 18px; }
   .hero-prev { left: 28px; }
   .hero-next { right: 28px; }

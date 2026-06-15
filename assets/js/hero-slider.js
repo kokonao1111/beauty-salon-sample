@@ -1,9 +1,10 @@
 function initHeroSlider() {
-  const slides  = document.querySelectorAll('.hero-slide');
-  const dots    = document.querySelectorAll('.hero-dot');
-  const prevBtn = document.querySelector('.hero-prev');
-  const nextBtn = document.querySelector('.hero-next');
-  const hero    = slides[0]?.closest('.hero');
+  const slides     = document.querySelectorAll('.hero-slide');
+  const bars       = document.querySelectorAll('.hero-bar');
+  const prevBtn    = document.querySelector('.hero-prev');
+  const nextBtn    = document.querySelector('.hero-next');
+  const hero       = slides[0]?.closest('.hero');
+  const counterCur = hero?.querySelector('.hero-counter-cur');
 
   if (!slides.length) return;
 
@@ -31,10 +32,14 @@ function initHeroSlider() {
       img.style.animation = '';
     }
 
-    dots[from]?.classList.remove('is-active');
-    dots[from]?.removeAttribute('aria-current');
-    dots[current]?.classList.add('is-active');
-    dots[current]?.setAttribute('aria-current', 'true');
+    // Update bar indicators
+    bars[from]?.classList.remove('is-active');
+    bars[from]?.removeAttribute('aria-current');
+    bars[current]?.classList.add('is-active');
+    bars[current]?.setAttribute('aria-current', 'true');
+
+    // Update "01 / 04" counter
+    if (counterCur) counterCur.textContent = String(current + 1).padStart(2, '0');
   }
 
   /* ── Autoplay ────────────────────────────────────────────── */
@@ -50,7 +55,7 @@ function initHeroSlider() {
     timer = null;
   }
 
-  // Manual navigation resets the autoplay timer so interaction feels responsive
+  // Manual navigation resets the autoplay timer so it doesn't fire too soon
   function manualGoTo(index) {
     clearInterval(timer);
     goTo(index);
@@ -62,14 +67,14 @@ function initHeroSlider() {
   prevBtn?.addEventListener('click', () => manualGoTo(current - 1));
   nextBtn?.addEventListener('click', () => manualGoTo(current + 1));
 
-  dots.forEach((dot, i) => dot.addEventListener('click', () => manualGoTo(i)));
+  bars.forEach((bar, i) => bar.addEventListener('click', () => manualGoTo(i)));
 
   // Keyboard: left/right arrows work when any slider control is focused
   function onKeydown(e) {
     if (e.key === 'ArrowLeft')  { manualGoTo(current - 1); e.preventDefault(); }
     if (e.key === 'ArrowRight') { manualGoTo(current + 1); e.preventDefault(); }
   }
-  [prevBtn, nextBtn, ...dots].forEach(el => el?.addEventListener('keydown', onKeydown));
+  [prevBtn, nextBtn, ...bars].forEach(el => el?.addEventListener('keydown', onKeydown));
 
   /* ── Touch swipe ─────────────────────────────────────────── */
 
@@ -115,6 +120,6 @@ function initHeroSlider() {
 
   /* ── Init ────────────────────────────────────────────────── */
 
-  dots[0]?.setAttribute('aria-current', 'true');
+  bars[0]?.setAttribute('aria-current', 'true');
   startAutoplay();
 }

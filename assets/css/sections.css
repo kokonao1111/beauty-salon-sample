@@ -55,26 +55,67 @@
 }
 .hero-reserve-btn { display: none; }
 
-.hero-dots {
+/* Hero: slide navigation (line bars + counter) */
+.hero-nav {
   position: absolute;
-  bottom: 38px;
+  bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  gap: 9px;
   z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
-.hero-dot {
-  width: 6px;
-  height: 6px;
+
+.hero-bars { display: flex; align-items: center; gap: 2px; }
+
+/* Tap target is 44×44px; the visual bar is the ::after pseudo-element */
+.hero-bar {
+  position: relative;
+  width: 44px;
+  height: 44px;
   padding: 0;
+  background: none;
   border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .35);
   cursor: pointer;
-  transition: background .4s, transform .4s;
 }
-.hero-dot.is-active { background: rgba(255, 255, 255, .92); transform: scale(1.4); }
+
+.hero-bar::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 1.5px;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, .30);
+  transition: width .4s, height .4s, background .4s;
+}
+
+.hero-bar.is-active::after {
+  width: 34px;
+  height: 2px;
+  background: rgba(196, 165, 107, .88);
+}
+
+.hero-bar:focus-visible { outline: none; }
+.hero-bar:focus-visible::after { background: rgba(196, 165, 107, .85); width: 34px; }
+
+/* Counter: "01 / 04" */
+.hero-counter {
+  font-family: Georgia, serif;
+  font-size: 10px;
+  letter-spacing: .10em;
+  color: rgba(255, 255, 255, .50);
+  line-height: 1;
+}
+
+.hero-counter-cur {
+  font-size: 14px;
+  letter-spacing: .06em;
+  color: rgba(255, 255, 255, .85);
+}
 
 /* Hero: navigation arrows */
 .hero-arrow {
@@ -85,14 +126,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   background: rgba(8, 4, 1, .20);
   border: 1px solid rgba(196, 165, 107, .28);
   border-radius: 50%;
   color: rgba(255, 255, 255, .82);
   cursor: pointer;
-  transition: background .28s, border-color .28s, color .28s;
+  transition: background .28s, border-color .28s, color .28s, transform .22s;
 }
 .hero-arrow svg {
   width: 16px;
@@ -112,6 +153,8 @@
 }
 .hero-prev { left: 16px; }
 .hero-next { right: 16px; }
+.hero-prev:hover { transform: translateY(-50%) translateX(-3px); }
+.hero-next:hover { transform: translateY(-50%) translateX(3px); }
 
 .hero-scroll {
   position: absolute;
