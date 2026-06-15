@@ -73,7 +73,9 @@
 .pc-nav a:hover { color: var(--deep); }
 .pc-nav a:hover::after { transform: scaleX(1); }
 
-.pc-nav .nav-reserve {
+.pc-nav .nav-reserve,
+.pc-nav .nav-reserve:link,
+.pc-nav .nav-reserve:visited {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -83,11 +85,22 @@
   letter-spacing: .09em;
   color: #fff;
   background: var(--deep);
-  transition: background .22s;
+  transition: background .22s, color .22s;
 }
 .pc-nav .nav-reserve::after { display: none; }
-.pc-nav .nav-reserve:hover        { background: #3d2a10; color: #fff; }
-.pc-nav .nav-reserve:focus-visible { background: #3d2a10; color: #fff; outline: 2px solid var(--gold); outline-offset: 2px; }
+.pc-nav .nav-reserve:hover,
+.pc-nav .nav-reserve:focus-visible {
+  background: #3d2a10;
+  color: #fff;
+}
+.pc-nav .nav-reserve:active {
+  background: #120a03;
+  color: #fff;
+}
+.pc-nav .nav-reserve:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
 .pc-nav .nav-reserve svg {
   width: 14px;
   height: 14px;
@@ -97,7 +110,12 @@
   stroke-width: 1.5;
   transition: transform .24s;
 }
-.pc-nav .nav-reserve:hover svg { transform: translateX(2px); }
+.pc-nav .nav-reserve:hover svg,
+.pc-nav .nav-reserve:focus-visible svg,
+.pc-nav .nav-reserve:active svg {
+  stroke: #fff;
+  transform: translateX(2px);
+}
 
 /* ── SP Header ── */
 .sp-header {
