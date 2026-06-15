@@ -387,7 +387,107 @@ body.anim-ready .insta-stagger.is-visible>*:nth-child(8){transition-delay:.49s}
     padding-left:calc((100vw - var(--max)) / 2);
     padding-right:calc((100vw - var(--max)) / 2);
   }
-  .hero-copy{padding:0 calc((100vw - var(--max)) / 2)}
+  /* BUG FIX: hero-copy already has max-width constraint, use fixed padding */
+  .hero-copy{padding:0 clamp(60px,5vw,96px)}
+
+  /* Hero */
+  .hero{height:min(calc(100vh - var(--hh)),940px)}
+  .hero-logo-en{font-size:clamp(44px,3.8vw,60px);letter-spacing:.18em;white-space:nowrap}
+  .hero-logo-ja{font-size:11px;letter-spacing:.28em;margin-bottom:14px}
+  .hero-tag{font-size:17px}
+
+  /* Instagram: contain to max-width so images don't become enormous */
+  .insta-grid{max-width:var(--max);margin-left:auto;margin-right:auto}
+  .insta-sec{padding-bottom:76px}
+
+  /* Booking: widen + cream background for visual presence */
+  .book-sec{background:var(--cream)}
+  .book-inner{max-width:740px}
+  .book-btns{gap:14px}
+  .book-btn{padding:18px 16px}
+  .book-btn.primary{padding:19px 16px}
+
+  /* Intro: slightly wider text column */
+  .intro-inner{max-width:600px}
+
+  /* Header: tighten inner max-width on very wide viewports */
+  .pc-header-inner{max-width:1400px}
+}
+
+/* ================================================================
+   1680px+ — scale up content for ultra-wide
+   ================================================================ */
+@media(min-width:1680px){
+  :root{--max:1280px}
+
+  /* Hero */
+  .hero{height:min(calc(100vh - var(--hh)),960px)}
+  .hero-logo-en{font-size:clamp(48px,3.6vw,64px)}
+  .hero-reserve-btn{padding:15px 34px;font-size:14px;letter-spacing:.13em}
+
+  /* Intro */
+  .intro-inner{max-width:640px}
+  .intro-lead{font-size:clamp(18px,1.3vw,22px)}
+
+  /* Plans */
+  .plan-price{font-size:24px}
+
+  /* Booking */
+  .book-inner{max-width:840px}
+
+  /* Section headings */
+  .sec-head .ja{font-size:clamp(22px,1.7vw,28px)}
+
+  /* Header */
+  .pc-header-inner{max-width:1560px}
+}
+
+/* ================================================================
+   1920px+ — full wide, premium feel
+   ================================================================ */
+@media(min-width:1920px){
+  :root{--max:1400px}
+
+  /* Hero */
+  .hero{height:min(calc(100vh - var(--hh)),980px)}
+  .hero-logo-en{font-size:clamp(52px,3.2vw,68px)}
+  .hero-tag{font-size:18px}
+
+  /* Intro */
+  .intro-inner{max-width:680px}
+
+  /* First timer */
+  .first-layout{gap:110px}
+
+  /* Booking */
+  .book-inner{max-width:880px}
+  .book-btn{padding:20px 18px;font-size:15px}
+  .book-btn.primary{padding:21px 18px;font-size:16px}
+
+  /* Section headings */
+  .sec-head .ja{font-size:28px}
+  .sec-head{margin-bottom:52px}
+
+  /* Store */
+  .store-layout{gap:80px}
+  .map-box{flex:1.5}
+
+  /* Header */
+  .pc-header-inner{max-width:1720px}
+  .pc-logo{font-size:19px}
+  .pc-nav a{font-size:14px;padding:10px 16px}
+}
+
+/* ================================================================
+   2560px+ — 4K / ultrawide
+   ================================================================ */
+@media(min-width:2560px){
+  :root{--max:1600px}
+  .hero{height:min(calc(100vh - var(--hh)),1040px)}
+  .hero-logo-en{font-size:72px}
+  .hero-tag{font-size:19px}
+  .book-inner{max-width:960px}
+  .pc-header-inner{max-width:1960px}
 }
 
 /* ================================================================
