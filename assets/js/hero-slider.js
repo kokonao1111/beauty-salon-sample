@@ -1,32 +1,43 @@
 function initHeroSlider() {
-  const slides = document.querySelectorAll('.hero-slide');
-  const dots   = document.querySelectorAll('.hero-dot');
+  const slides  = document.querySelectorAll('.hero-slide');
+  const dots    = document.querySelectorAll('.hero-dot');
+  const prevBtn = document.querySelector('.hero-prev');
+  const nextBtn = document.querySelector('.hero-next');
+  const hero    = slides[0]?.closest('.hero');
+
   if (!slides.length) return;
 
   const SLIDE_INTERVAL_MS = 5800;
+  const SWIPE_MIN_PX      = 50;   // minimum horizontal travel to count as swipe
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let current = 0;
   let timer   = null;
 
-  function goTo(index) {
-    slides[current].classList.remove('is-active');
-    dots[current]?.classList.remove('is-active');
+  /* ── Core transition ─────────────────────────────────────── */
 
+  function goTo(index) {
+    const from = current;
     current = (index + slides.length) % slides.length;
 
-    // Restart the CSS zoom animation on the incoming image.
-    // Removing and re-adding the element triggers a reflow, which resets the animation.
+    slides[from].classList.remove('is-active');
+    slides[current].classList.add('is-active');
+
+    // Restart the CSS zoom animation on the incoming image
     const img = slides[current].querySelector('.hero-slide-img');
     if (img && !reducedMotion) {
       img.style.animation = 'none';
-      void img.offsetWidth; // force reflow
+      void img.offsetWidth; // force reflow to restart animation
       img.style.animation = '';
     }
 
-    slides[current].classList.add('is-active');
+    dots[from]?.classList.remove('is-active');
+    dots[from]?.removeAttribute('aria-current');
     dots[current]?.classList.add('is-active');
+    dots[current]?.setAttribute('aria-current', 'true');
   }
+
+  /* ── Autoplay ────────────────────────────────────────────── */
 
   function startAutoplay() {
     if (reducedMotion) return;
@@ -34,13 +45,76 @@ function initHeroSlider() {
     timer = setInterval(() => goTo(current + 1), SLIDE_INTERVAL_MS);
   }
 
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      clearInterval(timer);
-      goTo(i);
-      startAutoplay();
+  function stopAutoplay() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  // Manual navigation resets the autoplay timer so interaction feels responsive
+  function manualGoTo(index) {
+    clearInterval(timer);
+    goTo(index);
+    startAutoplay();
+  }
+
+  /* ── Controls ────────────────────────────────────────────── */
+
+  prevBtn?.addEventListener('click', () => manualGoTo(current - 1));
+  nextBtn?.addEventListener('click', () => manualGoTo(current + 1));
+
+  dots.forEach((dot, i) => dot.addEventListener('click', () => manualGoTo(i)));
+
+  // Keyboard: left/right arrows work when any slider control is focused
+  function onKeydown(e) {
+    if (e.key === 'ArrowLeft')  { manualGoTo(current - 1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { manualGoTo(current + 1); e.preventDefault(); }
+  }
+  [prevBtn, nextBtn, ...dots].forEach(el => el?.addEventListener('keydown', onKeydown));
+
+  /* ── Touch swipe ─────────────────────────────────────────── */
+
+  if (hero) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    hero.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    hero.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+
+      // Ignore vertical-dominant gestures (user is scrolling the page)
+      if (Math.abs(dy) > Math.abs(dx)) return;
+      if (Math.abs(dx) < SWIPE_MIN_PX) return;
+
+      manualGoTo(dx < 0 ? current + 1 : current - 1);
+    }, { passive: true });
+  }
+
+  /* ── Pause on hover / focus ──────────────────────────────── */
+
+  if (hero) {
+    hero.addEventListener('mouseenter', stopAutoplay);
+    hero.addEventListener('mouseleave', () => { if (!document.hidden) startAutoplay(); });
+
+    hero.addEventListener('focusin',  stopAutoplay);
+    hero.addEventListener('focusout', (e) => {
+      // Only restart if focus left the hero entirely
+      if (!hero.contains(e.relatedTarget)) startAutoplay();
     });
+  }
+
+  /* ── Pause when tab is hidden ────────────────────────────── */
+
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? stopAutoplay() : startAutoplay();
   });
 
+  /* ── Init ────────────────────────────────────────────────── */
+
+  dots[0]?.setAttribute('aria-current', 'true');
   startAutoplay();
 }

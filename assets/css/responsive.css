@@ -59,6 +59,10 @@
 @media (min-width: 1024px) {
   .hero { height: calc(100vh - var(--hh)); min-height: 640px; display: flex; align-items: stretch; }
   .hero-dots { bottom: 32px; left: auto; right: 80px; transform: none; }
+  .hero-arrow { width: 46px; height: 46px; }
+  .hero-arrow svg { width: 18px; height: 18px; }
+  .hero-prev { left: 28px; }
+  .hero-next { right: 28px; }
   .hero-veil {
     background:
       radial-gradient(ellipse at 18% 56%, rgba(8,4,1,.76) 0%, rgba(8,4,1,.46) 30%, rgba(8,4,1,.16) 58%, transparent 76%),
@@ -159,6 +163,8 @@
   .hero-logo-en { font-size: clamp(44px,3.8vw,60px); letter-spacing: .18em; white-space: nowrap; }
   .hero-logo-ja { font-size: 11px; letter-spacing: .28em; margin-bottom: 14px; }
   .hero-tag     { font-size: 17px; }
+  .hero-prev    { left: 36px; }
+  .hero-next    { right: 36px; }
 
   /* Instagram: constrain grid so images don't become enormous */
   .insta-grid { max-width: var(--max); margin-left: auto; margin-right: auto; }

@@ -267,4 +267,5 @@ body.is-loading { overflow: hidden; }
   .site-loader .ldr-brand,
   .site-loader .ldr-copy { opacity: 1; transform: none; }
   .site-loader .ldr-bar  { width: 100%; }
+  .hero-arrow            { transition: none; }
 }
