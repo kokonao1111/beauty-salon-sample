@@ -222,14 +222,14 @@
 }
 .ft-rule { width: 28px; height: 1px; margin: 0 auto 28px; background: rgba(196, 165, 107, .46); }
 .ft-logo { margin-bottom: 5px; font-size: 15px; letter-spacing: .17em; color: #f7f0df; font-weight: normal; }
-.ft-sub  { margin-bottom: 22px; font-size: 10px; letter-spacing: .19em; color: rgba(247, 240, 223, .52); }
-.ft-info { margin-bottom: 24px; font-size: 12px; letter-spacing: .04em; color: rgba(247, 240, 223, .65); line-height: 2; }
+.ft-sub  { margin-bottom: 22px; font-size: 10px; letter-spacing: .19em; color: rgba(247, 240, 223, .66); }
+.ft-info { margin-bottom: 24px; font-size: 12px; letter-spacing: .04em; color: rgba(247, 240, 223, .78); line-height: 2; }
 .ft-nav  { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 22px; }
 .ft-nav a {
   padding: 5px 12px;
   font-size: 12px;
   letter-spacing: .07em;
-  color: rgba(247, 240, 223, .68);
+  color: rgba(247, 240, 223, .80);
   border-right: 1px solid rgba(247, 240, 223, .12);
   transition: color .22s;
 }
@@ -242,12 +242,13 @@
   gap: 7px;
   font-size: 11px;
   letter-spacing: .09em;
-  color: rgba(247, 240, 223, .52);
+  color: rgba(247, 240, 223, .66);
   transition: color .22s;
 }
-.ft-sns a:hover { color: rgba(247, 240, 223, .88); }
+.ft-sns a:hover { color: rgba(247, 240, 223, .95); }
 .ft-sns svg { width: 13px; height: 13px; fill: currentColor; }
-.ft-copy { font-size: 11px; letter-spacing: .09em; color: rgba(247, 240, 223, .36); }
+.ft-copy { font-size: 11px; letter-spacing: .09em; color: rgba(247, 240, 223, .50); }
+.ft-sample { margin-top: 24px; font-size: 10px; letter-spacing: .04em; color: rgba(247, 240, 223, .28); line-height: 1.8; }
 
 /* ── SP floating reservation bar ── */
 .sp-float { position: fixed; bottom: 0; left: 0; right: 0; display: flex; z-index: 800; }
