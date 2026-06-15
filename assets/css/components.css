@@ -1,0 +1,23 @@
+/* ── SECTION HEADING ── */
+.sec-head { text-align: center; margin-bottom: 44px; }
+.sec-head .en-sub {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 11px; letter-spacing: .20em;
+  color: var(--gold); margin-bottom: 12px;
+}
+.sec-head .ja {
+  display: block;
+  font-size: clamp(20px,2.6vw,26px); letter-spacing: .09em;
+  color: var(--deep); font-weight: normal;
+  margin-bottom: 13px; line-height: 1.5;
+}
+.sec-head .en {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  font-family: Georgia, serif; font-size: 11px; letter-spacing: .17em; color: #5a3e1a;
+}
+.sec-head .en::before,
+.sec-head .en::after {
+  content: ''; width: 24px; height: 1px;
+  background: var(--line); flex-shrink: 0;
+}

@@ -1,0 +1,243 @@
+/* ================================================================
+   TABLET 768px+
+   ================================================================ */
+@media (min-width: 768px) {
+  body { padding-bottom: 0; }
+  .sp-float    { display: none; }
+  .sp-body-pad { display: none; }
+  .sp-header   { display: none; }
+  .pc-header   { display: block; }
+
+  .hero { margin-top: var(--hh); height: calc(100vh - var(--hh)); min-height: 540px; }
+  .hero-scroll { display: none; }
+
+  .intro-sec { padding: 80px 48px 88px; }
+
+  .camp-grid   { grid-template-columns: repeat(2,1fr); gap: 4px; }
+  .camp-body   { padding: 18px 20px 22px; }
+  .camp-tag    { font-size: 10px; margin-bottom: 7px; }
+  .camp-title  { font-size: 15px; }
+  .camp-sub    { display: block; }
+
+  .first-sec    { padding: 72px 40px 80px; }
+  .first-layout { grid-template-columns: 200px 1fr; gap: 72px; align-items: start; }
+
+  .trial-sec { padding: 72px 40px 84px; }
+  .plan-grid { grid-template-columns: repeat(2,1fr); gap: 20px; }
+
+  .rec-sec      { padding: 72px 40px 80px; }
+  .rec-grid     { grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .rec-card-fig { aspect-ratio: 4/3; }
+  .rec-card-body { padding: 22px 24px 26px; }
+
+  .news-sec   { padding: 72px 40px 80px; }
+  .news-cat   { display: block; }
+  .news-item  { gap: 20px; }
+  .news-title { font-size: 15px; }
+
+  .insta-sec      { padding: 0 0 76px; }
+  .insta-head-wrap { padding: 72px 40px 36px; }
+  .insta-grid     { grid-template-columns: repeat(4,1fr); }
+  .insta-btns     { flex-direction: row; justify-content: center; padding: 0 40px; }
+
+  .book-sec  { padding: 72px 48px 80px; }
+  .book-btns { flex-direction: row; gap: 12px; }
+  .book-btn         { flex: 1; padding: 16px 10px; font-size: 13px; }
+  .book-btn.primary { font-size: 14px; padding: 17px 10px; }
+
+  .store-sec    { padding: 72px 40px 100px; }
+  .store-layout { flex-direction: row; gap: 48px; align-items: flex-start; }
+  .map-box      { flex: 1.3; aspect-ratio: 4/3; }
+  .store-detail { flex: 1; }
+
+  .site-footer { padding: 60px 40px 64px; }
+}
+
+/* ================================================================
+   PC 1024px+
+   ================================================================ */
+@media (min-width: 1024px) {
+  .hero { height: calc(100vh - var(--hh)); min-height: 640px; display: flex; align-items: stretch; }
+  .hero-dots { bottom: 32px; left: auto; right: 80px; transform: none; }
+  .hero-veil {
+    background:
+      radial-gradient(ellipse at 18% 56%, rgba(8,4,1,.76) 0%, rgba(8,4,1,.46) 30%, rgba(8,4,1,.16) 58%, transparent 76%),
+      linear-gradient(100deg, rgba(8,4,1,.62) 0%, rgba(8,4,1,.24) 38%, rgba(8,4,1,.06) 62%, transparent 80%),
+      linear-gradient(180deg, rgba(8,4,1,.18) 0%, transparent 38%, rgba(8,4,1,.44) 100%);
+  }
+  .hero-copy {
+    position: relative; bottom: auto; z-index: 2;
+    display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+    text-align: left; max-width: var(--max); margin: 0 auto; padding: 0 80px; width: 100%;
+  }
+  .hero-logo-en    { font-size: clamp(30px,3.6vw,50px); text-shadow: 0 3px 32px rgba(0,0,0,.65); margin-bottom: 22px; }
+  .hero-tag        { font-size: clamp(15px,1.4vw,18px); text-shadow: 0 2px 20px rgba(0,0,0,.65); margin-bottom: 38px; line-height: 2.15; }
+  .hero-reserve-btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--gold); color: #fff;
+    padding: 14px 30px; font-size: 13px; letter-spacing: .12em;
+    font-family: var(--serif); transition: background .22s, transform .24s;
+  }
+  .hero-reserve-btn:hover { background: #a87830; transform: translateY(-1px); }
+  .hero-reserve-btn svg { width: 15px; height: 15px; fill: none; stroke: #fff; stroke-width: 1.5; flex-shrink: 0; transition: transform .22s; }
+  .hero-reserve-btn:hover svg { transform: translateX(3px); }
+
+  .intro-sec { padding: 88px 60px 96px; }
+
+  .first-sec    { padding: 80px clamp(40px,5vw,80px) 88px; }
+  .first-layout { grid-template-columns: 240px 1fr; gap: 88px; }
+  .first-head   { font-size: clamp(22px,2.6vw,28px); }
+
+  .trial-sec   { padding: 80px clamp(40px,5vw,80px) 92px; }
+  .trial-inner { max-width: var(--max); }
+  .plan-body   { padding: 18px 20px 42px; }
+  .plan-grid   { grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .plan-name   { font-size: 15px; }
+  .plan-price  { font-size: 26px; }
+
+  .rec-sec      { padding: 80px clamp(40px,5vw,80px) 96px; }
+  .rec-inner    { max-width: var(--max); }
+  .rec-card-name { font-size: 18px; }
+  .rec-card-body { padding: 24px 26px 28px; }
+
+  .news-sec   { padding: 80px clamp(40px,5vw,80px) 88px; }
+  .news-inner { max-width: var(--max); }
+
+  .insta-sec       { padding: 0 0 88px; }
+  .insta-head-wrap { max-width: var(--max); margin: 0 auto; padding: 80px clamp(40px,5vw,80px) 40px; }
+  .insta-btns      { max-width: var(--max); padding: 0 clamp(40px,5vw,80px); }
+
+  .book-sec         { padding: 80px clamp(40px,5vw,80px) 92px; }
+  .book-inner       { max-width: 540px; }
+  .book-btn         { font-size: 14px; padding: 17px 12px; }
+  .book-btn.primary { font-size: 15px; padding: 18px 12px; }
+
+  .store-sec    { padding: 80px clamp(40px,5vw,80px) 112px; }
+  .store-inner  { max-width: var(--max); }
+  .store-layout { gap: 60px; }
+  .map-box      { flex: 1.4; aspect-ratio: 4/3; }
+  .store-row    { padding: 16px 0; }
+
+  .site-footer { padding: 64px 60px 72px; }
+}
+
+/* ================================================================
+   4-COL 1200px+
+   ================================================================ */
+@media (min-width: 1200px) {
+  .plan-grid  { grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .plan-body  { padding: 16px 18px 42px; }
+  .plan-name  { font-size: 14px; }
+  .plan-price { font-size: 22px; }
+
+  .camp-grid  { grid-template-columns: repeat(4,1fr); gap: 3px; }
+  .camp-body  { padding: 20px 20px 22px; }
+  .camp-title { font-size: 14px; }
+  .camp-sub   { font-size: 12px; }
+
+  .insta-grid { grid-template-columns: repeat(4,1fr); }
+}
+
+/* ================================================================
+   WIDE 1440px+
+   ================================================================ */
+@media (min-width: 1440px) {
+  /* Align section content to --max centered column */
+  .intro-sec, .first-sec, .trial-sec, .rec-sec, .news-sec, .book-sec, .store-sec {
+    padding-left:  calc((100vw - var(--max)) / 2);
+    padding-right: calc((100vw - var(--max)) / 2);
+  }
+  .insta-head-wrap, .insta-btns {
+    padding-left:  calc((100vw - var(--max)) / 2);
+    padding-right: calc((100vw - var(--max)) / 2);
+  }
+  /* Hero: fixed padding since .hero-copy already has max-width */
+  .hero-copy { padding: 0 clamp(60px,5vw,96px); }
+
+  /* Hero */
+  .hero         { height: min(calc(100vh - var(--hh)), 940px); }
+  .hero-logo-en { font-size: clamp(44px,3.8vw,60px); letter-spacing: .18em; white-space: nowrap; }
+  .hero-logo-ja { font-size: 11px; letter-spacing: .28em; margin-bottom: 14px; }
+  .hero-tag     { font-size: 17px; }
+
+  /* Instagram: constrain grid so images don't become enormous */
+  .insta-grid { max-width: var(--max); margin-left: auto; margin-right: auto; }
+  .insta-sec  { padding-bottom: 76px; }
+
+  /* Booking: widen + cream background for visual presence */
+  .book-sec   { background: var(--cream); }
+  .book-inner { max-width: 740px; }
+  .book-btns  { gap: 14px; }
+  .book-btn         { padding: 18px 16px; }
+  .book-btn.primary { padding: 19px 16px; }
+
+  /* Intro: slightly wider text column */
+  .intro-inner { max-width: 600px; }
+
+  /* Header */
+  .pc-header-inner { max-width: 1400px; }
+}
+
+/* ================================================================
+   1680px+ — scale content for ultra-wide
+   ================================================================ */
+@media (min-width: 1680px) {
+  :root { --max: 1280px; }
+
+  .hero         { height: min(calc(100vh - var(--hh)), 960px); }
+  .hero-logo-en { font-size: clamp(48px,3.6vw,64px); }
+  .hero-reserve-btn { padding: 15px 34px; font-size: 14px; letter-spacing: .13em; }
+
+  .intro-inner { max-width: 640px; }
+  .intro-lead  { font-size: clamp(18px,1.3vw,22px); }
+
+  .plan-price { font-size: 24px; }
+
+  .book-inner { max-width: 840px; }
+
+  .sec-head .ja { font-size: clamp(22px,1.7vw,28px); }
+
+  .pc-header-inner { max-width: 1560px; }
+}
+
+/* ================================================================
+   1920px+ — full wide, premium feel
+   ================================================================ */
+@media (min-width: 1920px) {
+  :root { --max: 1400px; }
+
+  .hero         { height: min(calc(100vh - var(--hh)), 980px); }
+  .hero-logo-en { font-size: clamp(52px,3.2vw,68px); }
+  .hero-tag     { font-size: 18px; }
+
+  .intro-inner  { max-width: 680px; }
+  .first-layout { gap: 110px; }
+
+  .book-inner       { max-width: 880px; }
+  .book-btn         { padding: 20px 18px; font-size: 15px; }
+  .book-btn.primary { padding: 21px 18px; font-size: 16px; }
+
+  .sec-head    { margin-bottom: 52px; }
+  .sec-head .ja { font-size: 28px; }
+
+  .store-layout { gap: 80px; }
+  .map-box      { flex: 1.5; }
+
+  .pc-header-inner { max-width: 1720px; }
+  .pc-logo { font-size: 19px; }
+  .pc-nav a { font-size: 14px; padding: 10px 16px; }
+}
+
+/* ================================================================
+   2560px+ — 4K / ultrawide
+   ================================================================ */
+@media (min-width: 2560px) {
+  :root { --max: 1600px; }
+
+  .hero         { height: min(calc(100vh - var(--hh)), 1040px); }
+  .hero-logo-en { font-size: 72px; }
+  .hero-tag     { font-size: 19px; }
+  .book-inner   { max-width: 960px; }
+
+  .pc-header-inner { max-width: 1960px; }
+}

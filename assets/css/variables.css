@@ -1,0 +1,19 @@
+:root {
+  /* Brand Colors */
+  --gold:       #c4a56b;
+  --gold-lt:    #e8d8a8;
+  --brown:      #3d2a0e;
+  --deep:       #1e1408;
+  --ivory:      #f9f6f1;
+  --cream:      #f3ebe0;
+  --mist:       #e6ddd0;
+  --line:       #c8b07a;
+  --footer-bg:  #180e04;
+
+  /* Typography */
+  --serif: 'Hiragino Mincho ProN', 'Yu Mincho', 'YuMincho', 'Noto Serif JP', Georgia, serif;
+
+  /* Layout */
+  --max: 1160px;
+  --hh:  68px;
+}
