@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
   initHeroSlider();
   initScrollEffects();
   initToast();
+  initModals();
+  initLightbox();
 
   // Prevent placeholder href="#" links from scrolling the page to the top.
   // Logo links (pc-toplink, sp-toplink) are handled by initNavigation() and intentionally scroll.

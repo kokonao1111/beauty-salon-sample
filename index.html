@@ -476,10 +476,37 @@
 <!-- Coming-soon toast -->
 <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
+<!-- Detail Modal (Plan / Rec) -->
+<div id="detail-modal" class="dmodal-bg" role="dialog" aria-modal="true" aria-labelledby="dmodal-title">
+  <div class="dmodal">
+    <button class="dmodal-close" aria-label="閉じる">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <span class="dmodal-tag"></span>
+    <h3 class="dmodal-title" id="dmodal-title"></h3>
+    <div class="dmodal-price-row" hidden>
+      <span class="dmodal-reg"></span>
+      <span class="dmodal-price"></span>
+      <span class="dmodal-dur"></span>
+    </div>
+    <p class="dmodal-desc"></p>
+    <a href="#booking" class="dmodal-btn">このプランを相談する</a>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lbx-bg" role="dialog" aria-modal="true" aria-label="画像拡大表示">
+  <button class="lbx-close" aria-label="閉じる">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <img class="lbx-img" src="" alt="">
+</div>
+
 <script src="assets/js/loader.js" defer></script>
 <script src="assets/js/navigation.js" defer></script>
 <script src="assets/js/hero-slider.js" defer></script>
 <script src="assets/js/scroll-effects.js" defer></script>
+<script src="assets/js/modals.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>

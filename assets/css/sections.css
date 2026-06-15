@@ -236,7 +236,7 @@
 .trial-sec  { padding: 64px 20px 80px; background: var(--ivory); }
 .trial-inner { max-width: var(--max); margin: 0 auto; }
 .plan-grid  { display: grid; grid-template-columns: 1fr; gap: 16px; }
-.plan-card  { position: relative; overflow: hidden; background: #fff; transition: box-shadow .3s, transform .26s; }
+.plan-card  { position: relative; overflow: hidden; background: #fff; cursor: pointer; transition: box-shadow .3s, transform .26s; }
 .plan-card:hover { box-shadow: 0 8px 32px rgba(30, 20, 8, .11); transform: translateY(-3px); }
 .plan-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: center 28%; display: block; }
 .plan-body  { padding: 16px 18px 40px; }
@@ -259,6 +259,7 @@
   flex-direction: column;
   background: var(--ivory);
   border: 1px solid rgba(196, 165, 107, .16);
+  cursor: pointer;
   transition: box-shadow .32s cubic-bezier(.4, 0, .2, 1), transform .28s cubic-bezier(.4, 0, .2, 1), border-color .28s;
 }
 .rec-card:hover { box-shadow: 0 12px 48px rgba(30, 20, 8, .09); transform: translateY(-5px); border-color: rgba(196, 165, 107, .30); }
@@ -314,7 +315,7 @@
 .insta-sec       { padding: 0 0 68px; background: var(--ivory); }
 .insta-head-wrap { padding: 64px 24px 30px; text-align: center; }
 .insta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
-.insta-item { overflow: hidden; aspect-ratio: 1/1; background: var(--mist); }
+.insta-item { overflow: hidden; aspect-ratio: 1/1; background: var(--mist); cursor: pointer; }
 .insta-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .72s; }
 .insta-item:hover img { transform: scale(1.04); }
 .insta-btns { max-width: var(--max); margin: 26px auto 0; padding: 0 24px; display: flex; flex-direction: column; gap: 11px; align-items: center; }
