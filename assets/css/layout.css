@@ -286,3 +286,32 @@
 .sp-float-tel { background: var(--gold); color: var(--deep); }
 .sp-float-web { background: var(--deep); color: #fff; }
 .sp-body-pad  { height: 54px; }
+
+/* ── Coming-soon toast ── */
+.toast {
+  position: fixed;
+  bottom: 72px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  z-index: 7000;
+  max-width: min(380px, calc(100vw - 40px));
+  padding: 14px 24px;
+  background: var(--deep);
+  color: #f9f6f1;
+  font-size: 13px;
+  letter-spacing: .05em;
+  line-height: 1.75;
+  border: 1px solid rgba(196, 165, 107, .5);
+  text-align: center;
+  white-space: pre-line;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .36s ease, transform .36s ease;
+}
+.toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+@media (min-width: 768px) {
+  .toast { bottom: 40px; }
+}
