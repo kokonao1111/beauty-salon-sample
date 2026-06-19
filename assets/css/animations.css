@@ -7,11 +7,15 @@
   100% { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
 }
 
-/* ── Scroll & entrance animations ──────────────────────────────
-   body.anim-ready is set by JS (IntersectionObserver).
-   Without JS the class is never added, so all elements stay visible.
-   .is-visible has one extra class in its selector, which beats the
-   initial-state rule without needing !important.
+/* ── スクロールとエントランスのアニメーション ───────────────────────────────
+
+body.anim-ready は JS (IntersectionObserver) によって設定されます。
+
+JS がない場合、このクラスは追加されないため、すべての要素が表示された状態になります。
+
+.is-visible のセレクタには追加のクラスが 1 つ含まれており、
+
+!important を使わなくても initial-state ルールを破ります。
 ───────────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
 
