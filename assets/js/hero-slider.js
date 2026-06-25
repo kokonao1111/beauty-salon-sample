@@ -127,32 +127,25 @@ function initHeroSlider() {
   /* ── Init ────────────────────────────────────────────────── */
 
   bars[0]?.setAttribute('aria-current', 'true');
-  startAutoplay();
 
-  // The loading screen covers the hero for ~2.7 s, so the first-slide
-  // zoom animation has already run partway by the time it becomes visible.
-  // Restart it the moment the loader finishes fading out.
-  if (!reducedMotion) {
-    const loader = document.getElementById('siteLoader');
-    let restarted = false;
+  // Start autoplay only AFTER the loader fades.
+  // Starting it during loading causes phantom hover/focus events (fired when
+  // the loader overlay disappears) to kill the timer before the first change.
+  // CSS rule "body.is-loading .hero-slide-img { animation: none }" keeps the
+  // first image frozen during loading so it plays fresh with no jerk.
+  const loader = document.getElementById('siteLoader');
+  let autoplayInited = false;
 
-    function restartFirstSlide() {
-      if (restarted) return;
-      restarted = true;
-      if (slides[0]?.classList.contains('is-active')) {
-        const img = slides[0].querySelector('.hero-slide-img');
-        if (img) {
-          img.style.animation = 'none';
-          void img.offsetWidth;
-          img.style.animation = '';
-        }
-      }
-    }
+  function beginAutoplay() {
+    if (autoplayInited) return;
+    autoplayInited = true;
+    startAutoplay();
+  }
 
-    if (loader) {
-      loader.addEventListener('transitionend', restartFirstSlide, { once: true });
-    }
-    // Fallback: restart after loader min time (2700 ms) + fade (800 ms)
-    setTimeout(restartFirstSlide, 3600);
+  if (loader) {
+    loader.addEventListener('transitionend', beginAutoplay, { once: true });
+    setTimeout(beginAutoplay, 3600); // fallback if transitionend never fires
+  } else {
+    startAutoplay(); // no loader present — start immediately
   }
 }
