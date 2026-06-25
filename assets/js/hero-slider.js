@@ -128,20 +128,24 @@ function initHeroSlider() {
 
   bars[0]?.setAttribute('aria-current', 'true');
 
-  // body.is-loading is removed at the exact moment the loader starts fading
-  // (pointer-events: none set) and the hero image animation begins.
-  // Starting autoplay here gives slide 1 the same 5800 ms as every other slide.
+  // body.is-loading is removed when the loader starts fading and the hero
+  // image animation begins. The loader itself shows for ~2700 ms, so by the
+  // time the user sees slide 1 they've already waited that long. Using a
+  // shorter first interval (4000 ms) makes the total wait feel like a normal
+  // cycle; subsequent slides use the full 5800 ms.
   let autoplayInited = false;
 
   function beginAutoplay() {
     if (autoplayInited) return;
     autoplayInited = true;
-    startAutoplay();
+    setTimeout(() => {
+      goTo(current + 1);
+      startAutoplay();
+    }, 4000);
   }
 
   if (!document.body.classList.contains('is-loading')) {
-    // Loader already gone or never present
-    startAutoplay();
+    startAutoplay(); // loader already gone or never present
   } else {
     const mo = new MutationObserver(() => {
       if (!document.body.classList.contains('is-loading')) {
