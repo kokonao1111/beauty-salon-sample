@@ -122,4 +122,31 @@ function initHeroSlider() {
 
   bars[0]?.setAttribute('aria-current', 'true');
   startAutoplay();
+
+  // The loading screen covers the hero for ~2.7 s, so the first-slide
+  // zoom animation has already run partway by the time it becomes visible.
+  // Restart it the moment the loader finishes fading out.
+  if (!reducedMotion) {
+    const loader = document.getElementById('siteLoader');
+    let restarted = false;
+
+    function restartFirstSlide() {
+      if (restarted) return;
+      restarted = true;
+      if (slides[0]?.classList.contains('is-active')) {
+        const img = slides[0].querySelector('.hero-slide-img');
+        if (img) {
+          img.style.animation = 'none';
+          void img.offsetWidth;
+          img.style.animation = '';
+        }
+      }
+    }
+
+    if (loader) {
+      loader.addEventListener('transitionend', restartFirstSlide, { once: true });
+    }
+    // Fallback: restart after loader min time (2700 ms) + fade (800 ms)
+    setTimeout(restartFirstSlide, 3600);
+  }
 }
