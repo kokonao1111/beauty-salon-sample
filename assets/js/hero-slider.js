@@ -101,8 +101,14 @@ function initHeroSlider() {
 
   /* ── Pause on hover / focus ──────────────────────────────── */
 
+  // When the loader fades out, the browser fires mouseenter on the hero if the
+  // cursor happens to be positioned over it — even though the user never moved.
+  // Track real mouse movement so we can ignore that phantom event.
+  let cursorMoved = false;
+  window.addEventListener('mousemove', () => { cursorMoved = true; }, { once: true });
+
   if (hero) {
-    hero.addEventListener('mouseenter', stopAutoplay);
+    hero.addEventListener('mouseenter', () => { if (cursorMoved) stopAutoplay(); });
     hero.addEventListener('mouseleave', () => { if (!document.hidden) startAutoplay(); });
 
     hero.addEventListener('focusin',  stopAutoplay);
