@@ -128,12 +128,9 @@ function initHeroSlider() {
 
   bars[0]?.setAttribute('aria-current', 'true');
 
-  // Start autoplay only AFTER the loader fades.
-  // Starting it during loading causes phantom hover/focus events (fired when
-  // the loader overlay disappears) to kill the timer before the first change.
-  // CSS rule "body.is-loading .hero-slide-img { animation: none }" keeps the
-  // first image frozen during loading so it plays fresh with no jerk.
-  const loader = document.getElementById('siteLoader');
+  // body.is-loading is removed at the exact moment the loader starts fading
+  // (pointer-events: none set) and the hero image animation begins.
+  // Starting autoplay here gives slide 1 the same 5800 ms as every other slide.
   let autoplayInited = false;
 
   function beginAutoplay() {
@@ -142,10 +139,17 @@ function initHeroSlider() {
     startAutoplay();
   }
 
-  if (loader) {
-    loader.addEventListener('transitionend', beginAutoplay, { once: true });
-    setTimeout(beginAutoplay, 3600); // fallback if transitionend never fires
+  if (!document.body.classList.contains('is-loading')) {
+    // Loader already gone or never present
+    startAutoplay();
   } else {
-    startAutoplay(); // no loader present — start immediately
+    const mo = new MutationObserver(() => {
+      if (!document.body.classList.contains('is-loading')) {
+        mo.disconnect();
+        beginAutoplay();
+      }
+    });
+    mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    setTimeout(() => { mo.disconnect(); beginAutoplay(); }, 5000); // safety net
   }
 }
